@@ -48,9 +48,20 @@
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
                         </a>
-                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Logout
+                        <form id="logoutForm" action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="button" onclick="logout()">Logout</button>
+                        </form>
+                        
+                        <script>
+                            function logout() {
+                                // Submit the form
+                                document.getElementById("logoutForm").submit();
+                                // Redirect to the login page
+                                window.location.href = "{% url 'login2' %}";
+                            }
+                        </script>
+                        
                         </a>
                     </div>
                 </li>
@@ -70,7 +81,9 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">View Timetable</div>
+                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><a class="nav-link" href="{% url 'display' %}">view timetable</a>
+
+                                    </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                 </div>
                                 <div class="col-auto">
@@ -84,7 +97,8 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">view allocation</div>
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1"> <a class="nav-link" href="{% url 'booked' %}">view allocation</a></li></a>
+                                    </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                 </div>
                                 <div class="col-auto">
@@ -98,7 +112,9 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">View Announcements</div>
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1"> <a class="nav-link" href="{% url 'view_announcement' %}">View Announcement</a></li></a>
+
+                                    </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                 </div>
                                 <div class="col-auto">
@@ -107,12 +123,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-md-6 mb-4">
+                <!-- <div class="col-xl-3 col-md-6 mb-4">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Query</div>
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1"> <a href="">Query</a>
+                                    </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                 </div>
                                 <div class="col-auto">
@@ -121,7 +138,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- Contact Buttons -->
             <footer class="bg-white">
                 <div class="container my-5">

@@ -1,0 +1,187 @@
+<!-- student_dashboard.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Student - Dashboard</title>
+    <!-- Custom fonts for this template-->
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Welcome back</div>
+            </a>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Student Dashboard</span></a>
+            </li>
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2 d-none d-lg-inline text-black-600 small">Hello Student!</span>
+                    <img class="img-profile rounded-circle" src="{% static 'img/undraw_profile.svg' %}">
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Student Dashboard</h1>
+            </div>
+            <!-- Content Row -->
+         <!-- Begin Timetable Section -->
+         <!-- Begin Timetable Section -->
+<div class="container-fluid">
+    <h2 class="h3 mb-4 text-gray-800">Timetable</h2>
+    <!-- Course Selection Dropdown -->
+    <div class="mb-3">
+        <label for="courseSelect" class="form-label">Select Course:</label>
+        <select class="form-select" id="courseSelect" onchange="changeTimetable()">
+            <option value="it">Bachelor in IT</option>
+            <option value="business">Bachelor in Business</option>
+        </select>
+    </div>
+    <!-- Timetable Display -->
+    <div class="row">
+        <div class="col-lg-22">
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <!-- Timetable Table -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="timetable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                    <!-- Add more days as needed -->
+                                </tr>
+                            </thead>
+                            <tbody id="timetableBody">
+                                <!-- Timetable rows will be dynamically populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Timetable Section -->
+
+<script>
+    // Function to change timetable based on selected course
+    function changeTimetable() {
+        var selectedCourse = document.getElementById("courseSelect").value;
+        var timetableBody = document.getElementById("timetableBody");
+        
+        // Clear previous timetable data
+        timetableBody.innerHTML = "";
+        
+        // Populate timetable based on selected course
+        if (selectedCourse === "it") {
+            timetableBody.innerHTML = `
+                <tr>
+                    <td>7:00 AM- 10:00 AM </td>
+                    <td>Introduction to Programming </td>
+                    <td>Web Development </td>
+                    <td>Data Structures and Algorithms </td>
+                    <td>Networking Basics </td>
+                    <td>Database Management Systems </td>
+                </tr>
+                <tr>
+                    <td>10:00 AM- 1:00 PM</td>
+                    <td>Web Development</td>
+                    <td>Data Structures and Algorithms</td>
+                    <td>Networking Basics</td>
+                    <td>Database Management Systems</td>
+                    <td>Introduction to Programming</td>
+                </tr>
+                <!-- Add more rows for different time slots as needed -->
+            `;
+        } else if (selectedCourse === "business") {
+            // Populate timetable for Bachelor in Business
+            timetableBody.innerHTML = `
+                <tr>
+                    <td>8:00 - 9:00</td>
+                    <td>Business Communication</td>
+                    <td>Marketing Principles</td>
+                    <td>Financial Accounting</td>
+                    <td>Management Principles</td>
+                    <td>Economics</td>
+                </tr>
+                <tr>
+                    <td>9:00 - 10:00</td>
+                    <td>Marketing Principles</td>
+                    <td>Financial Accounting</td>
+                    <td>Management Principles</td>
+                    <td>Economics</td>
+                    <td>Business Communication</td>
+                </tr>
+                <!-- Add more rows for different time slots as needed -->
+            `;
+        }
+    }
+    
+    // Call the changeTimetable function initially to populate the timetable
+    changeTimetable();
+</script>
+
+<!-- End Timetable Section -->
+
+   <!-- End of Page Wrapper -->
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+</body>
+
+</html>

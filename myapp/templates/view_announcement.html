@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Lecturer - Dashboard</title>
+    <title>Announcement</title>
     {% load static %}
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -46,7 +45,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Lecturer Dashboard</span></a>
+                    <span>Announcement</span></a>
             </li>
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -95,74 +94,52 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Lecturer Dashboard</h1>
+            <!-- <h1 class="h3 mb-0 text-gray-800">Announcements</h1> -->
         </div>
 
         <!-- Content Row -->
-        <div class="row">
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <a class="nav-link" href="{% url 'available' %}">Book Hall</a></li>
-                            
-
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                            </div>
-                            <div class="col-auto">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1"> <a class="nav-link" href="{% url 'view_announcement' %}">View Announcement</a></li></a>
-
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                            </div>
-                            <div class="col-auto">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    <a class="nav-link" href="{% url 'booked' %}">view booking</a></li> </a>
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                            </div>
-                            <div class="col-auto">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            </div>
-                                           
-        </div>
-    </div>
-    </div>
-    </div>
-
-    </div>
     
+
+        {% block content %}
+        <div class="container-fluid">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">Announcements</h1>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Content</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for announcement in announcements %}
+                                        <tr>
+                                            <td>{{ announcement.title }}</td>
+                                            <td>{{ announcement.content }}</td>
+                                            <td>{{ announcement.pub_date }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
+    </div>
+    </div>
+    </div>
+    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
@@ -180,6 +157,9 @@
     <!-- Page level custom scripts -->
     <script src="{% static 'js/demo/chart-area-demo.js'%}"></script>
     <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+
+
+
 
 </body>
 

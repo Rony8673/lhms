@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +23,7 @@
 </head>
 
 <body id="page-top">
+    {% block content %}
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -96,74 +96,81 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Lecturer Dashboard</h1>
+            <a href="{% url 'booked' %}?hall_id={{ hall.id }}" class="btn btn-primary">View Bookings</a>
         </div>
-
-        <!-- Content Row -->
-        <div class="row">
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                <a class="nav-link" href="{% url 'available' %}">Book Hall</a></li>
-                            
-
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                            </div>
-                            <div class="col-auto">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1"> <a class="nav-link" href="{% url 'view_announcement' %}">View Announcement</a></li></a>
-
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                            </div>
-                            <div class="col-auto">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-               <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    <a class="nav-link" href="{% url 'booked' %}">view booking</a></li> </a>
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
-                            </div>
-                            <div class="col-auto">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            </div>
-                                           
-        </div>
-    </div>
-    </div>
-    </div>
-
-    </div>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     
+        <!-- Content Row -->
+        <h1>List of Halls</h1>
+        
+        <div class="row">
+            {% for hall in halls %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ hall.name }}</h5>
+                        <p class="card-text">Capacity: {{ hall.capacity }}</p>
+                        
+                        <!-- <ul>
+                            {% for booking in hall.booking_set.all %}
+                            <li>{{ booking.lecturer.get_full_name }} - {{ booking.unit }} - {{ booking.start_time|time:"h:i A" }} to {{ booking.end_time|time:"h:i A" }}</li>
+                            {% endfor %}
+                        </ul> -->
+                        
+                        <!-- Booking Form -->
+                        <!-- <form action="{% url 'book_hall_form' %}" method="post"> -->
+                            <form action="{% url 'submit_booking_request' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="hall_id" value="{{ hall.id }}">
+                                <div class="form-group">
+                                    <label for="lecturer">Lecturer's Name</label>
+                                    <input type="text" class="form-control" id="lecturer" name="lecturer" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="unit">Unit</label>
+                                    <input type="text" class="form-control" id="unit" name="unit" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="day">Select Day</label>
+                                    <select class="form-control" id="day" name="day" required>
+                                        <option value="">Select Day</option>
+                                        <option value="monday">Monday</option>
+                                        <option value="tuesday">Tuesday</option>
+                                        <option value="wednesday">Wednesday</option>
+                                        <option value="thursday">Thursday</option>
+                                        <option value="friday">Friday</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time_slot">Select Time Slot</label>
+                                    <select class="form-control" id="time_slot" name="time_slot" required>
+                                        <option value="">Select Time Slot</option>
+                                        <option value="7_10">7:00 AM - 10:00 AM</option>
+                                        <option value="10_1">10:00 AM - 1:00 PM</option>
+                                        <option value="1_4">1:00 PM - 4:00 PM</option>
+                                        <option value="4_7">4:00 PM - 7:00 PM</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Book Hall</button>
+                            </form>
+                        
+                    </div>
+                </div>
+            </div>
+    {% endfor %}
+</div>
 
+    </div>
+    </div>
+    </div>
+    </div>
+      {% endblock %}
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
